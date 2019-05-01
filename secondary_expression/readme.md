@@ -1,1 +1,1 @@
-Stranded pre-processing for gene exrepssion. 
+Count data using stranded pre-processing for gene exrepssion. 
