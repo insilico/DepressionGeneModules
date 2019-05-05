@@ -5,6 +5,7 @@
 library(edgeR)
 library(dplyr)
 library(reshape2)
+library(limma)
 
 #rm(list = ls())
 
@@ -34,6 +35,10 @@ mean(subj.total.counts) # 22,165,139 average counts per sample
 cohort.ids <- read.table("cohort_subjects.tab", header = TRUE, sep = " ",
                          stringsAsFactors = FALSE)
 
+#batch_strings <- subject.attrs$batch
+#batch_strings[batch_strings=="1st"] <- 1 
+#subject.attrs$X
+
 # remove outliers
 #outliers <- c("AN736", "AE396", "AI270")
 combined <- combined[,-which(colnames(combined)=="AN736")]
@@ -56,7 +61,6 @@ phenos.df <- attrs.df %>%
   dplyr::select(X, Diag)
 phenos.df <- phenos.df[match(colnames(combined), phenos.df$X), ]
 phenos <- ifelse(phenos.df$Diag == "HC", 0, 1)
-subj.colors <- ifelse(phenos == 1, "red", "black")
 
 # transform raw counts
 # CPM + log2 transform
