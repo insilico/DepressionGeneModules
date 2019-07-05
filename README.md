@@ -5,8 +5,7 @@ Trang T. Le, Jonathan Savitz, Hideo Suzuki, Masaya Misaki, T. Kent Teague,  Bill
 
 ### Notes
 
-The directional RNA-Seq preprocessing in the published analysis used the forward direction for the second file, which results in enrichment of antisense RNA (RNA that is transcribed from the coding strand of DNA as opposed to the template strand). These antisense RNA reads were mapped to their partner genes and antisense expression in these genes was associated with major depressive disorder. The function of the associated genes and modules in the manuscript should then be interpreted in terms of the antisense regulation of expression.  
-The two directories contain processed RNA-Seq dataset of mRNA gene expression (`secondary_expression_data/`) and the antisense expression used in the manuscript (`primary_antisense_modules/`) for 78 individuals with major depressive disorder (MDD) and 79 healthy controls (HC).
+This repository contains all data and analysis code to reproduce the results in the depression gene module paper [Open Acess](https://rdcu.be/5S6I "Translational Psychiatry"). The directional RNA-Seq preprocessing in the published analysis used the forward direction for the second file, which results in enrichment of antisense RNA (RNA that is transcribed from the coding strand of DNA as opposed to the template strand). These antisense RNA reads were mapped to their partner genes and antisense expression in these genes was associated with major depressive disorder. The function of the associated genes and modules in the manuscript should then be interpreted in terms of the antisense regulation of expression. The two directories contain processed RNA-Seq dataset of mRNA (sense) gene expression (`secondary_expression_data/`) and the antisense expression used in the manuscript (`primary_antisense_modules/`) for 78 individuals with major depressive disorder (MDD) and 79 healthy controls (HC).
 
 ### Abstract
 
