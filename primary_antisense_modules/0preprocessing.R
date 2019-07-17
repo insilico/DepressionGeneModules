@@ -16,6 +16,9 @@ library(ggplot2)
 library(broom)
 # library(sva)
 
+filter_bool <- T # to filter or allow all genes
+log_bool <- T    # log the cpm or not
+
 # rm(list=ls())
 source("projections.R")
 load('combined_cohorts_data.Rdata') # raw counts
@@ -45,7 +48,11 @@ ppp <- ggplot() + coord_fixed() + labs(x="Comp1, Axis1", y="Comp2, Axis2") +
 y <- DGEList(counts = t(rnaSeq), group = pheno)
 keep <- rowSums(cpm(y) > 10) >= 16
 summary(keep)
-y <- y[keep, , keep.lib.sizes = FALSE]
+
+if (filter_bool){
+  y <- y[keep, , keep.lib.sizes = FALSE] # remove low counts genes
+} 
+
 y <- calcNormFactors(y)
 head(y$samples,10)
 head(t(rnaSeq))[,1:10]
@@ -59,9 +66,9 @@ boxplot(y$samples$norm.factors)
 # Remove the outlier subjects
 # -----------------------------------------------------------------------------
 rnaSeqFiltered <- rnaSeq[,keep] # removed low counts genes
-mycpm <- cpm(y, log = T)
+mycpm <- cpm(y, log = log_bool)
 # # # Angle-based outlier detection:
-# # mycpm <- cpm(t(rnaSeqFiltered), log = T)
+# # mycpm <- cpm(t(rnaSeqFiltered), log = log_bool)
 abof <- abod(t(mycpm), method = "knn", k = 10)
 names(abof) <- rownames(rnaSeq)
 head(sort(abof),5)
@@ -148,9 +155,9 @@ y <- DGEList(counts = t(condensed.rnaSeq), group = condensed.pheno)
 # -----------------------------------------------------------------------------
 # LogCPM, plot PCA and save data
 # -----------------------------------------------------------------------------
-# mycpm <- cpm(t(rnaSeq), log = T)
+# mycpm <- cpm(t(rnaSeq), log = log_bool)
 
-mycpm <- cpm(y, log = T)
+mycpm <- cpm(y, log = log_bool)
 # text(1:159, abof, labels = names(abof))
 my.pca <- dudi.pca(t(mycpm), nf = 10, scale = F, scannf = F, center = T)
 varExplained <- as.integer(my.pca$eig/sum(my.pca$eig)*100)
@@ -160,7 +167,7 @@ ppp + geom_point(data=my.pca$li, aes(x=Axis1, y=Axis2, color = as.factor(condens
 ppp + geom_point(data=my.pca$li, 
                  aes(x=Axis1, y=Axis2,shape  = as.factor(condensed.cohort), color = condensed.pheno), 
                  size = 3.5) 
-cpm.corrected <- removeBatchEffect(cpm(t(condensed.rnaSeq), log = T), condensed.cohort)
+cpm.corrected <- removeBatchEffect(cpm(t(condensed.rnaSeq), log = log_bool), condensed.cohort)
 my.pca <- dudi.pca(t(cpm.corrected), nf = 4, scale = F, scannf = F, center = T)
 # ppp + geom_point(data=my.pca$li, aes(x=Axis1, y=Axis2, color = as.factor(condensed.cohort)), size = 3.5) + 
 #   geom_text(data=my.pca$li, aes(x=Axis1, y=Axis2, label=rownames(my.pca$li)))
@@ -175,7 +182,11 @@ boxplot(mycpm, las=2, cex.axis=0.75, main="Log CPM Before Outliers and Batch Eff
 filtered.logcpm.uncorrected <- mycpm
 # save(filtered.logcpm.uncorrected, file = "filtered.logcpm.uncorrected.Rdata")
 filtered.logcpm.corrected <- cpm.corrected
+if (filter_bool){
 save(filtered.logcpm.corrected, file = "filtered.logcpm.corrected.Rdata")
-
+} else{
+  rnaSeq <- filtered.logcpm.corrected
+  save(rnaSeq, file = "antisense.nofilter.cpm.corrected.Rdata")
+}
 
 
