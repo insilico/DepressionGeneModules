@@ -1,7 +1,13 @@
-libr_mdd_rnaseq.tab: RNA-Seq count data using stranded pre-processing for gene exrepssion. 
+# Identification and replication of RNA-Seq gene network modules associated with depression severity.
+Trang T. Le, Jonathan Savitz, Hideo Suzuki, Masaya Misaki, T. Kent Teague,  Bill C. White, Julie H. Marino, Graham Wiley, Patrick M. Gaffney, Wayne C. Drevets, Jerzy Bodurka, 
+and  Brett A. McKinney
 
-cohort_subjects.tab: Batch ids (4) for each subject.
+`secondary_expression_data/` 
 
-Demographic_symptom.csv: Demographic and symptom data for each subject. 
+`libr_mdd_rnaseq.tab`: RNA-Seq count data using stranded pre-processing (regular gene exrepssion). 
 
-0.filter.data.R: Load and count expression data. 
+`cohort_subjects.tab`: Batch ids (4) for each subject.
+
+`Demographic_symptom.csv`: Demographic and symptom data for each subject. 
+
+`0.filter.data.R`: Loads count expression data for further analysis. 

@@ -2,9 +2,14 @@
 Trang T. Le, Jonathan Savitz, Hideo Suzuki, Masaya Misaki, T. Kent Teague,  Bill C. White, Julie H. Marino, Graham Wiley, Patrick M. Gaffney, Wayne C. Drevets, Jerzy Bodurka, 
 and  Brett A. McKinney
 
-### Abstract
+`primary_antisense_modules/` 
 
-Genomic variation underlying major depressive disorder (MDD) likely involves the interaction and regulation of multiple genes in a network. Data-driven co-expression network module inference has the potential to account for variation within regulatory networks, reduce the dimensionality of RNA-Seq data and detect significant gene-expression modules associated with depression severity. We performed an RNA-Seq gene co-expression network analysis of mRNA data obtained from the peripheral blood mononuclear cells of unmedicated MDD (n=78) and healthy control (n=79) subjects. Across the combined MDD and HC groups, we assigned genes into modules using hierarchical clustering with a dynamic tree cut method and projected the expression data onto a lower-dimensional module space by computing the single-sample gene-set enrichment score of each module. We tested the single-sample scores of each module for association with levels of depression severity measured by the Montgomery-Åsberg Depression Scale (MADRS). Independent of MDD status, we identified 23 gene modules from the co-expression network. Two modules were significantly associated with the MADRS score after multiple comparison adjustment (adjusted p=0.009, 0.028 at 0.05 FDR threshold), and one of these modules replicated in a previous RNA-Seq study of MDD (p=0.03). The two MADRS-associated modules contain genes previously implicated in mood disorders and show enrichment of apoptosis and B cell receptor signaling. The genes in these modules show a correlation between network centrality and univariate association with depression, suggesting that intramodular hub genes are more likely to be related to MDD compared to other genes in a module.
+To reproduce the gene module analysis, run the R scripts with prefixes 0-4 in order. 
 
-### Acknowledgements
-This study was supported by the National Institute of Mental Health award R01MH098099. The authors thank all staff members at Laureate Institute for Brain Research, especially Brent Wurfel, M.D., Matthew Meyer, M.D., and William Yates, M.D. for conducting psychiatric interviews, Tim Collins for administering clinical interview and assessments, and Megan Cole, Saman Aziz, and Cindy Bonebright for performing blood draws. In addition, the authors acknowledge the contributions of Ashlee Taylor, Brenda Davis, Chibing Tan, and Debbie Neal from the laboratory of TKT towards the transport, processing, and handling of the blood samples. Finally, we thank staff members at Oklahoma Medical Research Foundation, for generating RNA-Seq data.
+`0.8genes.filtered.corrected.Rdata` contains the filtered and batch corrected antisense log counts per million data matrix, `rnaSeq`. 
+
+`nofilter.cpm.corrected.Rdata` contains the unfiltered and non-logged batch corrected antisense counts per million data matrix, also called `rnaSeq`. 
+
+`enrichmentProfile.Rdata` contains the data matrix of filtered antisense count data collapsed onto 23 module predictors: `collapse.genes`. 
+
+`R01_madrs_data.csv` contains demographic and phenotype data. 
